@@ -1,4 +1,3 @@
 var=input()
 print(var)
 
-
