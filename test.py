@@ -1,20 +1,25 @@
 import re
-from sys import argv
-from pprint import pprint
-def parse_sh_ip_int_br():
-    with open("sh_ip.txt", 'r') as f:
-        final_list =[]
-        for i in (f.read().split("\n")):
-            match_interface = re.search(r"([F|L]\w+\S+)\s+(.{10})\s+\D{4}\w+\s+(\D{21})\s(.+)", i)
 
-            if match_interface:
-                #print(match_interface.group(4))
-                final_list.append(match_interface.group(1,2,3,4))
-        pprint(final_list)
+filenames = ["sw1_dhcp_snooping.txt","sw2_dhcp_snooping.txt","sw3_dhcp_snooping.txt"]
+output = "result.csv"
 
 
-parse_sh_ip_int_br()
+def write_dhcp_snooping_to_csv(filenames, output):
+    test = [["switch", "mac", "ip", "vlan", "interface"]]
+    for i in filenames:
+        data = []
+        match_name_sw = re.search(r"(\w\w\d+)", i)
+        if match_name_sw:
+            data.append(match_name_sw.group(0))
+        with open(i) as f:
+            for line in f:
+                print("ляля", line)
+                # match = re.search(r"(\w\w\w\w\:\w\w\w\w\:\w\w\w\w).+", line)
+                # if match:
+                # print(match.group())
 
+
+write_dhcp_snooping_to_csv(filenames, output)
 
 
 
